@@ -10,14 +10,8 @@
         
 <meta name="description" content="
 &lt;div class=&#34;cell border-box-sizing text_cell rendered&#34;&gt;&lt;div class=&#34;prompt input_prompt&#34;&gt;
-&lt;/div&gt;&lt;div class=&#34;inner_cell&#34;&gt;
-&lt;div class=&#34;text_cell_render border-box-sizing rendered_html&#34;&gt;
-&lt;h1 id=&#34;The-Experiment&#34;&gt;The Experiment&lt;a class=&#34;anchor-link&#34; href=&#34;#The-Experiment&#34;&gt;&amp;#182;&lt;/a&gt;&lt;/h1&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;cell border-box-sizing text_cell rendered&#34;&gt;&lt;div class=&#34;prompt input_prompt&#34;&gt;
-&lt;/div&gt;&lt;div class=&#34;inner_cell&#34;&gt;
+&lt;div class=&#34;inner_cell&#34;&gt;
 &lt;div class=&#34;text_cell_render border-box-sizing rendered_html&#34;&gt;
 &lt;p&gt;To &lt;code&gt;git&lt;/code&gt; or not to &lt;code&gt;git&lt;/code&gt;? Much like the adage from the old Bard&#39;s &lt;a href=&#34;http://shakespeare.mit.edu/hamlet/hamlet.3.1.html&#34;&gt;Hamlet&lt;/a&gt;, this question marks what is an unbridgeable chasm that exists within many data teams. Unapologetic engineers swear by version control and shun Jupyter Notebooks for production-level code; on the other hand, within the data science world &lt;code&gt;git&lt;/code&gt;" />
 <meta name="keywords" content=" python math software engineering notebooks  "/>
@@ -55,7 +49,7 @@
 
                 <div class="row title-bar">
                     <div class="small-12 columns">
-                        <h1><a href="">brian cruz stole this website</a></h1><h2> <small></small></h2>
+                        <h1><a href="">brian cruz stole this website</a></h1><h2> <small>ideas, huntches, and half-baked schemes</small></h2>
                         <hr>
                     </div>
                 </div>
@@ -87,124 +81,9 @@
 * IPython notebook
 *
 */
-/* CSS font colors for translated ANSI escape sequences */
-/* The color values are a mix of
-   http://www.xcolors.net/dl/baskerville-ivorylight and
-   http://www.xcolors.net/dl/euphrasia */
-.ansi-black-fg {
-  color: #3E424D;
-}
-.ansi-black-bg {
-  background-color: #3E424D;
-}
-.ansi-black-intense-fg {
-  color: #282C36;
-}
-.ansi-black-intense-bg {
-  background-color: #282C36;
-}
-.ansi-red-fg {
-  color: #E75C58;
-}
-.ansi-red-bg {
-  background-color: #E75C58;
-}
-.ansi-red-intense-fg {
-  color: #B22B31;
-}
-.ansi-red-intense-bg {
-  background-color: #B22B31;
-}
-.ansi-green-fg {
-  color: #00A250;
-}
-.ansi-green-bg {
-  background-color: #00A250;
-}
-.ansi-green-intense-fg {
-  color: #007427;
-}
-.ansi-green-intense-bg {
-  background-color: #007427;
-}
-.ansi-yellow-fg {
-  color: #DDB62B;
-}
-.ansi-yellow-bg {
-  background-color: #DDB62B;
-}
-.ansi-yellow-intense-fg {
-  color: #B27D12;
-}
-.ansi-yellow-intense-bg {
-  background-color: #B27D12;
-}
-.ansi-blue-fg {
-  color: #208FFB;
-}
-.ansi-blue-bg {
-  background-color: #208FFB;
-}
-.ansi-blue-intense-fg {
-  color: #0065CA;
-}
-.ansi-blue-intense-bg {
-  background-color: #0065CA;
-}
-.ansi-magenta-fg {
-  color: #D160C4;
-}
-.ansi-magenta-bg {
-  background-color: #D160C4;
-}
-.ansi-magenta-intense-fg {
-  color: #A03196;
-}
-.ansi-magenta-intense-bg {
-  background-color: #A03196;
-}
-.ansi-cyan-fg {
-  color: #60C6C8;
-}
-.ansi-cyan-bg {
-  background-color: #60C6C8;
-}
-.ansi-cyan-intense-fg {
-  color: #258F8F;
-}
-.ansi-cyan-intense-bg {
-  background-color: #258F8F;
-}
-.ansi-white-fg {
-  color: #C5C1B4;
-}
-.ansi-white-bg {
-  background-color: #C5C1B4;
-}
-.ansi-white-intense-fg {
-  color: #A1A6B2;
-}
-.ansi-white-intense-bg {
-  background-color: #A1A6B2;
-}
-.ansi-default-inverse-fg {
-  color: #FFFFFF;
-}
-.ansi-default-inverse-bg {
-  background-color: #000000;
-}
-.ansi-bold {
-  font-weight: bold;
-}
-.ansi-underline {
-  text-decoration: underline;
-}
-/* The following styles are deprecated an will be removed in a future version */
+/* CSS font colors for translated ANSI colors. */
 .ansibold {
   font-weight: bold;
-}
-.ansi-inverse {
-  outline: 0.5px dotted;
 }
 /* use dark versions for foreground, to improve visibility */
 .ansiblack {
@@ -283,20 +162,12 @@ div.cell {
   /* This acts as a spacer between cells, that is outside the border */
   margin: 0px;
   outline: none;
-  position: relative;
-  overflow: visible;
-}
-div.cell:before {
-  position: absolute;
-  display: block;
-  top: -1px;
-  left: -1px;
-  width: 5px;
-  height: calc(100% +  2px);
-  content: '';
-  background: transparent;
+  border-left-width: 1px;
+  padding-left: 5px;
+  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
 }
 div.cell.jupyter-soft-selected {
+  border-left-color: #90CAF9;
   border-left-color: #E3F2FD;
   border-left-width: 1px;
   padding-left: 5px;
@@ -309,39 +180,27 @@ div.cell.jupyter-soft-selected {
     border-color: transparent;
   }
 }
-div.cell.selected,
-div.cell.selected.jupyter-soft-selected {
+div.cell.selected {
   border-color: #ababab;
-}
-div.cell.selected:before,
-div.cell.selected.jupyter-soft-selected:before {
-  position: absolute;
-  display: block;
-  top: -1px;
-  left: -1px;
-  width: 5px;
-  height: calc(100% +  2px);
-  content: '';
-  background: #42A5F5;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
 }
 @media print {
-  div.cell.selected,
-  div.cell.selected.jupyter-soft-selected {
+  div.cell.selected {
     border-color: transparent;
   }
 }
+div.cell.selected.jupyter-soft-selected {
+  border-left-width: 0;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
+}
 .edit_mode div.cell.selected {
   border-color: #66BB6A;
-}
-.edit_mode div.cell.selected:before {
-  position: absolute;
-  display: block;
-  top: -1px;
-  left: -1px;
-  width: 5px;
-  height: calc(100% +  2px);
-  content: '';
-  background: #66BB6A;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
 }
 @media print {
   .edit_mode div.cell.selected {
@@ -537,9 +396,7 @@ div.input_area > div.highlight > pre {
 .CodeMirror-lines {
   /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
   /* we have set a different line-height and want this to scale with that. */
-  /* Note that this should set vertical padding only, since CodeMirror assumes
-       that horizontal padding will be set on CodeMirror pre */
-  padding: 0.4em 0;
+  padding: 0.4em;
 }
 .CodeMirror-linenumber {
   padding: 0 8px 0 4px;
@@ -549,24 +406,11 @@ div.input_area > div.highlight > pre {
   border-top-left-radius: 2px;
 }
 .CodeMirror pre {
-  /* In CM3 this went to 4px from 0 in CM2. This sets horizontal padding only,
-    use .CodeMirror-lines for vertical */
-  padding: 0 0.4em;
+  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
+  /* .CodeMirror-lines */
+  padding: 0;
   border: 0;
   border-radius: 0;
-}
-.CodeMirror-cursor {
-  border-left: 1.4px solid black;
-}
-@media screen and (min-width: 2138px) and (max-width: 4319px) {
-  .CodeMirror-cursor {
-    border-left: 2px solid black;
-  }
-}
-@media screen and (min-width: 4320px) {
-  .CodeMirror-cursor {
-    border-left: 4px solid black;
-  }
 }
 /*
 
@@ -814,9 +658,6 @@ div.output_area img.unconfined,
 div.output_area svg.unconfined {
   max-width: none;
 }
-div.output_area .mglyph > img {
-  max-width: none;
-}
 /* This is needed to protect the pre formating from global settings such
    as that of bootstrap */
 .output {
@@ -855,7 +696,7 @@ div.output_area .mglyph > img {
 }
 div.output_area pre {
   margin: 0;
-  padding: 1px 0 1px 0;
+  padding: 0;
   border: 0;
   vertical-align: baseline;
   color: black;
@@ -977,10 +818,6 @@ div.output_unrecognized a:hover {
 .rendered_html h6:first-child {
   margin-top: 1em;
 }
-.rendered_html ul:not(.list-inline),
-.rendered_html ol:not(.list-inline) {
-  padding-left: 2em;
-}
 
 
 
@@ -997,24 +834,16 @@ div.output_unrecognized a:hover {
 }
 
 
-
-
-
 .rendered_html pre,
-
 
 
 
 .rendered_html tr,
 .rendered_html th,
 
+.rendered_html td,
 
-.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
+
 .rendered_html * + table {
   margin-top: 1em;
 }
@@ -1030,11 +859,6 @@ div.output_unrecognized a:hover {
 
 .rendered_html img.unconfined,
 
-
-.rendered_html * + .alert {
-  margin-top: 1em;
-}
-[dir="rtl"] 
 div.text_cell {
   /* Old browsers */
   display: -webkit-box;
@@ -1085,15 +909,8 @@ h6:hover .anchor-link {
   display: none;
 }
 .text_cell.rendered 
-.text_cell.rendered .rendered_html tr,
-.text_cell.rendered .rendered_html th,
-.text_cell.rendered 
 .text_cell.unrendered .text_cell_render {
   display: none;
-}
-.text_cell .dropzone .input_area {
-  border: 2px dashed #bababa;
-  margin: -1px;
 }
 .cm-header-1,
 .cm-header-2,
@@ -1232,14 +1049,8 @@ h6:hover .anchor-link {
 .ansi-bold { font-weight: bold; }
 </style><body>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="The-Experiment">The Experiment<a class="anchor-link" href="#The-Experiment">&#182;</a></h1>
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To <code>git</code> or not to <code>git</code>? Much like the adage from the old Bard's <a href="http://shakespeare.mit.edu/hamlet/hamlet.3.1.html">Hamlet</a>, this question marks what is an unbridgeable chasm that exists within many data teams. Unapologetic engineers swear by version control and shun Jupyter Notebooks for production-level code; on the other hand, within the data science world <code>git</code> is seen as a barrier to adoption and Notebooks are rock stars. "But notebooks don't even provide a very clean <code>git diff</code>," bemoans the engineer.</p>
 
@@ -1247,7 +1058,8 @@ h6:hover .anchor-link {
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src="./images/an_experiment-google_trends.png" alt="super scientific"></p>
 
@@ -1255,7 +1067,8 @@ h6:hover .anchor-link {
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><em>Fig. 1: irrefutable proof that notebooks are more popular than git within the data science community</em></p>
 
@@ -1263,7 +1076,8 @@ h6:hover .anchor-link {
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>It is true that companies with serious engineering <em>and</em> data chops are elevating the Notebook to production. Just check out what <a href="https://medium.com/netflix-techblog/notebook-innovation-591ee3221233">Netflix</a> and <a href="https://www.youtube.com/watch?v=etKTJTxaad0">Databricks</a> have done.</p>
 <p>Is this a fad? And is there a limit to how far this can go? You can't build an OS using notebooks, can you?</p>
@@ -1278,7 +1092,8 @@ h6:hover .anchor-link {
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The following code from jupyter.org will help us:</p>
 
@@ -1377,13 +1192,14 @@ h6:hover .anchor-link {
 <span class="n">sys</span><span class="o">.</span><span class="n">meta_path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">NotebookFinder</span><span class="p">())</span>
 </pre></div>
 
-    </div>
+</div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now let's import from <a href="/efficiently_generating_trees.html">Efficiently Generating Trees</a>!</p>
 
@@ -1399,7 +1215,7 @@ h6:hover .anchor-link {
 <span class="n">RootedTreeCodeGenerator</span><span class="o">.</span><span class="n">make_table</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">known_sequence</span><span class="p">[:</span><span class="mi">5</span><span class="p">]))</span>
 </pre></div>
 
-    </div>
+</div>
 </div>
 </div>
 
@@ -1409,7 +1225,7 @@ h6:hover .anchor-link {
 
 <div class="output_area">
 
-    <div class="prompt"></div>
+<div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1420,7 +1236,7 @@ h6:hover .anchor-link {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[2]:</div>
+<div class="prompt output_prompt">Out[2]:</div>
 
 
 
@@ -1552,7 +1368,7 @@ h6:hover .anchor-link {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># LGTM!</span>
 </pre></div>
 
-    </div>
+</div>
 </div>
 </div>
 

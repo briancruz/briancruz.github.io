@@ -6,15 +6,16 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="author" content="brian cruz" />
-        <title>Efficiently Generating Trees</title>
+        <title>DNA Packaging</title>
         
 <meta name="description" content="
 &lt;div class=&#34;cell border-box-sizing text_cell rendered&#34;&gt;&lt;div class=&#34;prompt input_prompt&#34;&gt;
 &lt;/div&gt;
 &lt;div class=&#34;inner_cell&#34;&gt;
 &lt;div class=&#34;text_cell_render border-box-sizing rendered_html&#34;&gt;
-&lt;p&gt;Here is a method for efficiently generating rooted trees. First, we present the so-called &#34;isomorphism codes&#34; for representing trees that Gabriel Valiente presents in the book &lt;a href=&#34;https://www.springer.com/us/book/9783540435501&#34;&gt;&lt;em&gt;Algorithms on Trees and Graphs&lt;/em&gt;&lt;/a&gt;. Next, we present a way to iteravely generate all of these codes—just as one can generate all the whole numbers by starting at 0 and repeatedly adding 1.&lt;/p&gt;" />
-<meta name="keywords" content=" python math combinatorics  "/>
+&lt;p&gt;In graduate school, I investigated DNA packaging in viruses by running massive stochastic simulations on GPUs. I wrote:&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;Despite its small stature, the bacteriophage virus for decades has puzzled those who have sought to understand how they geometrically store their DNA. Since the 1970’s, both direct methods (like electron microscopy) and indirect methods (like numerical simulation) have helped elucidate the structure of DNA within the viral capsid. We use computer simulation to understand how the DNA packaging motor of the virus affects this structure through a mathematical quantifier of chirality called writhe....&lt;/p&gt;" />
+<meta name="keywords" content=" math dna topology dna packaging  "/>
 
         <!--[if !IE 7]>
         <style type="text/css">
@@ -57,18 +58,18 @@
                 <div id="contents">
 <div class="row">
     <div class="small-12 columns article">
-        <h2>Efficiently Generating Trees</h2>
+        <h2>DNA Packaging</h2>
         <div class="row info-bar" style="margin-left:0rem;margin-bottom:6px;">
     <div class="small-12 columns">
         <ul class="inline-list">
-            <li><span><i class="fa fa-calendar"></i>&nbsp; Sun 15 April 2018</span></li>
+            <li><span><i class="fa fa-calendar"></i>&nbsp; Tue 12 February 2019</span></li>
             <li><span><i class="fa fa-folder-open"></i>&nbsp; <a href="/category/posts.html">posts</a></span></li>
             <li>
                 <span>
                     <i class="fa fa-tags"></i>&nbsp;
-                    <a href="/tag/python.html"><span class="label">python</span></a>
                     <a href="/tag/math.html"><span class="label">math</span></a>
-                    <a href="/tag/combinatorics.html"><span class="label">combinatorics</span></a>
+                    <a href="/tag/dna-topology.html"><span class="label">dna topology</span></a>
+                    <a href="/tag/dna-packaging.html"><span class="label">dna packaging</span></a>
                 </span>
             </li>
         </ul>
@@ -1051,95 +1052,11 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here is a method for efficiently generating rooted trees. First, we present the so-called "isomorphism codes" for representing trees that Gabriel Valiente presents in the book <a href="https://www.springer.com/us/book/9783540435501"><em>Algorithms on Trees and Graphs</em></a>. Next, we present a way to iteravely generate all of these codes—just as one can generate all the whole numbers by starting at 0 and repeatedly adding 1.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<center><img src="./images/efficiently_generating_trees-graph.png" alt="drawing" width="200"/></center>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Figure 1: The code $[8,4,1,1,1,3,1,1]$ represents this rooted tree.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's break it down:</p>
-<ul>
-<li>The initial 8 indicates that the tree has 8 vertices.</li>
-<li>The 4 indicates that the subcode of length 4 beginning at the 4 (i.e. $[4,1,1,1]$) represents a subtree T1 of T, where the root of T1 is the child of the root of T.</li>
-<li>Similarly, the subtree T2 with the code $[3,1,1]$ has a root which is the child of the root of $T$.</li>
-<li>Thus, we see that the root of T (the red vertex) has two children.</li>
-<li>Looking at the children T1 and T2, we can apply the same reasoning to see that T1 has three children $[1]$,$[1]$, and $[1]$. Similarly T2 has two children: $[1]$ and $[1]$.</li>
-<li>Last, we see that $[1]$ represents a tree comprised of a single vertex with no edges and no children.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="So,-how-do-enumerate-these-codes?">So, how do enumerate these codes?<a class="anchor-link" href="#So,-how-do-enumerate-these-codes?">&#182;</a></h2><p>Suppose we want to enumerate these codes such that,</p>
-<ul>
-<li>no graph is repeated (thus $[8,4,1,1,1,3,1,1]$ and $[8,3,1,1,4,1,1,1]$ should not both appear in the sequence) and</li>
-<li>the codes are returned in lexographical (dictionary) ordering.</li>
-</ul>
-<p>We do so recursively on n, the length of the code.</p>
-<ul>
-<li>If $n=1$, the code must be $[1]$. The next code will be
-$Next([1])$=$[2,1]$.</li>
-<li>In general, any code of the form
-$[n,n-1,\ldots,2,1]$
-we will call terminal, and we will set</li>
-</ul>
-<p>$$Next([n,n-1,\ldots,2,1])=[n+1,\underbrace{1,\ldots,1}_{n\,\text{1's}}].$$</p>
-<ul>
-<li><p>Now, suppose that for all codes d of length less than n, we can find $Next(d)$. Now consider the non-terminal code e
-$e=[n,e_2,e_3,\ldots,e_n]$
-with $m$ children $c_1,\ldots,c_m$ (subsequences of $e$) so that we can write
-$e=[n] + c_1 + \ldots + c_m$ where, for instance, $[1] + [2, 3] = [1, 2, 3]$.</p>
-</li>
-<li><p>We now have two cases:</p>
-<ul>
-<li>Case 1:
-$c_m$ is not terminal. We find the minimum $i$ such that
-$c_i=\cdots=c_{m-1}=cm.$
-Then
-$$Next(e)=[n,c_1,\ldots,Next(c_i),1,\ldots]$$
-where the entries after $Next(c_i)$ are all replaced with $1$'s (there may be none)</li>
-<li>Case 2:
-$c_m$ is terminal. Since, $e$ is non-terminal, $m&gt;1$, and so $c_{m-1}$ exists. Find the minimum $i$ such that
-$c_i=⋯=c_{m-2}=c_{m-1}.$
-Then
-$$Next(e)=[n,c_1,\ldots,Next(c_i),1,\ldots]$$
-where the entries after $Next(ci)$ are all replaced with $1$'s.</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This algorithm produces all of the codes for rooted trees in lexicographical ordering of their codes. Here is a(n unoptimized) Python3 implementation:</p>
+<p>In graduate school, I investigated DNA packaging in viruses by running massive stochastic simulations on GPUs. I wrote:</p>
+<blockquote><p>Despite its small stature, the bacteriophage virus for decades has puzzled those who have sought to understand how they geometrically store their DNA. Since the 1970’s, both direct methods (like electron microscopy) and indirect methods (like numerical simulation) have helped elucidate the structure of DNA within the viral capsid. We use computer simulation to understand how the DNA packaging motor of the virus affects this structure through a mathematical quantifier of chirality called writhe....</p>
+</blockquote>
+<p>I wrote the code for the Brownian Dynamics simulation (primer <a href="http://web.mit.edu/doylegroup/pubs/BD-Handbook-v5.pdf">here</a>) using OpenCL, which I still really hope to this day catches on! (*fingers crossed*).</p>
+<p>Anyway, the point here is not to explain what I did but to share a cool video!</p>
 
 </div>
 </div>
@@ -1149,114 +1066,16 @@ where the entries after $Next(ci)$ are all replaced with $1$'s.</li>
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">lru_cache</span>
-<span class="kn">import</span> <span class="nn">doctest</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">VimeoVideo</span>
+<span class="kn">from</span> <span class="nn">decorator</span> <span class="k">import</span> <span class="n">decorator</span>
 
-<span class="k">class</span> <span class="nc">RootedTreeCode</span><span class="p">(</span><span class="nb">tuple</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A rooted tree in code &quot;isomorphism code&quot; form</span>
-<span class="sd">    </span>
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; RootedTreeCode.first()</span>
-<span class="sd">        (1,)</span>
-
-<span class="sd">        &gt;&gt;&gt; x = RootedTreeCode.first()</span>
-<span class="sd">        &gt;&gt;&gt; for _ in range(10):</span>
-<span class="sd">        ...     print(x)</span>
-<span class="sd">        ...     x = next(x)</span>
-<span class="sd">        (1,)</span>
-<span class="sd">        (2, 1)</span>
-<span class="sd">        (3, 1, 1)</span>
-<span class="sd">        (3, 2, 1)</span>
-<span class="sd">        (4, 1, 1, 1)</span>
-<span class="sd">        (4, 2, 1, 1)</span>
-<span class="sd">        (4, 3, 1, 1)</span>
-<span class="sd">        (4, 3, 2, 1)</span>
-<span class="sd">        (5, 1, 1, 1, 1)</span>
-<span class="sd">        (5, 2, 1, 1, 1)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">first</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
-    
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_children</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">children</span><span class="p">,</span> <span class="n">number_of_vertices</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        
-        <span class="c1"># count the number of vertices including the root node</span>
-        <span class="n">number_of_vertices</span> <span class="o">=</span> <span class="n">number_of_vertices</span> <span class="ow">or</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">children</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
-
-        <span class="n">code</span> <span class="o">=</span> <span class="p">[</span><span class="n">number_of_vertices</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">children</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">c</span><span class="p">]</span>
-        <span class="n">code</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">number_of_vertices</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">))</span>
-        
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
-    
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_terminal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span> <span class="o">==</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-    
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">children</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">child_idx</span> <span class="o">=</span> <span class="mi">1</span>
-        
-        <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">while</span> <span class="n">child_idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="n">child_length</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">child_idx</span><span class="p">]</span>
-            <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">child_idx</span><span class="p">:</span> <span class="n">child_idx</span> <span class="o">+</span> <span class="n">child_length</span><span class="p">]</span>
-            <span class="n">child_idx</span> <span class="o">+=</span> <span class="n">child_length</span>
-            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">child</span><span class="p">))</span>
-        
-        <span class="k">assert</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">output</span><span class="p">))</span> <span class="o">==</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
-
-        <span class="k">return</span> <span class="n">output</span>
-
-    <span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_terminal</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
-        
-        <span class="c1"># first, copy the children as a list</span>
-        <span class="n">children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span>
-        
-        <span class="c1"># then, choose a child to increment depending on whether the last</span>
-        <span class="c1"># child is terminal</span>
-        <span class="n">last_child</span> <span class="o">=</span> <span class="n">children</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="n">last_child</span><span class="o">.</span><span class="n">is_terminal</span><span class="p">:</span>
-            <span class="n">idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">children</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">children</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-
-        <span class="n">first_idx</span> <span class="o">=</span> <span class="n">children</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">children</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
-
-        <span class="c1"># increment the chosen child and pad 1&#39;s on the right</span>
-        <span class="n">children</span><span class="p">[</span><span class="n">first_idx</span><span class="p">]</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">children</span><span class="p">[</span><span class="n">first_idx</span><span class="p">])</span>
-        <span class="n">children</span> <span class="o">=</span> <span class="n">children</span><span class="p">[:</span><span class="n">first_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_children</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">number_of_vertices</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
-    
-    
-<span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">CenteredVimeoVideo</span><span class="p">(</span><span class="n">VimeoVideo</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">CenteredVimeoVideo</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_repr_html_</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;center&gt;</span><span class="si">{}</span><span class="s2">&lt;/center&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[1]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>TestResults(failed=0, attempted=3)</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -1266,53 +1085,7 @@ where the entries after $Next(ci)$ are all replaced with $1$'s.</li>
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">islice</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="k">class</span> <span class="nc">RootedTreeCodeGenerator</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A generator for rooted tree &quot;isomorphism codes&quot;</span>
-<span class="sd">    </span>
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; from itertools import islice</span>
-<span class="sd">        &gt;&gt;&gt; from pprint import pprint</span>
-<span class="sd">        &gt;&gt;&gt; pprint(list(islice(RootedTreeCodeGenerator(), 20)))</span>
-<span class="sd">        [(1,),</span>
-<span class="sd">         (2, 1),</span>
-<span class="sd">         (3, 1, 1),</span>
-<span class="sd">         (3, 2, 1),</span>
-<span class="sd">         (4, 1, 1, 1),</span>
-<span class="sd">         (4, 2, 1, 1),</span>
-<span class="sd">         (4, 3, 1, 1),</span>
-<span class="sd">         (4, 3, 2, 1),</span>
-<span class="sd">         (5, 1, 1, 1, 1),</span>
-<span class="sd">         (5, 2, 1, 1, 1),</span>
-<span class="sd">         (5, 2, 1, 2, 1),</span>
-<span class="sd">         (5, 3, 1, 1, 1),</span>
-<span class="sd">         (5, 3, 2, 1, 1),</span>
-<span class="sd">         (5, 4, 1, 1, 1),</span>
-<span class="sd">         (5, 4, 2, 1, 1),</span>
-<span class="sd">         (5, 4, 3, 1, 1),</span>
-<span class="sd">         (5, 4, 3, 2, 1),</span>
-<span class="sd">         (6, 1, 1, 1, 1, 1),</span>
-<span class="sd">         (6, 2, 1, 1, 1, 1),</span>
-<span class="sd">         (6, 2, 1, 2, 1, 1)]</span>
-<span class="sd">    &quot;&quot;&quot;</span>    
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rooted_tree_code</span><span class="o">=</span><span class="n">RootedTreeCode</span><span class="o">.</span><span class="n">first</span><span class="p">()):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rooted_tree_code</span> <span class="o">=</span> <span class="n">rooted_tree_code</span>
-
-    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rooted_tree_code</span>
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="k">yield</span> <span class="n">x</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">make_table</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="nb">dict</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">)</span> <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">islice</span><span class="p">(</span><span class="n">RootedTreeCodeGenerator</span><span class="p">(),</span> <span class="n">n</span><span class="p">)])</span>
-        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">code</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">df</span>
-
-<span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">CenteredVimeoVideo</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;313747384&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">611</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1329,210 +1102,20 @@ where the entries after $Next(ci)$ are all replaced with $1$'s.</li>
 
 
 
-
-<div class="output_text output_subarea output_execute_result">
-<pre>TestResults(failed=0, attempted=6)</pre>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<center>
+        <iframe
+            width="640"
+            height="611"
+            src="https://player.vimeo.com/video/313747384?center=True"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        </center>
 </div>
 
 </div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Verifying-the-sequence-is-(very-likely)-correct">Verifying the sequence is (very likely) correct<a class="anchor-link" href="#Verifying-the-sequence-is-(very-likely)-correct">&#182;</a></h2><p>We can verify the sequence by, for a given $n$, drawing out all the rooted graphs and then visually
-inspecting. We can also see if the sequence has properties that we would expect it to have. The <a href="https://oeis.org/">"
-The On-Line Encyclopedia of Integer Sequences"</a> is a combinatorialist's best friend. From there we obtain the counts of rooted graphs of size $n$:</p>
-<center><img src="./images/efficiently_generating_trees-oeis.png" alt="https://oeis.org/A000081" width="600"/></center><p>If our algorithm produces rooted, unlabelled graphs without repeats and if the codes are actually valid in the first place (can you show it?) then all we need to show is that the sequences are the same. What better way is there to do it than checking the first 17 and then assuming the pattern follows?</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Sequence from https://oeis.org/A000081</span>
-
-<span class="n">known_sequence</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">48</span><span class="p">,</span><span class="mi">115</span><span class="p">,</span><span class="mi">286</span><span class="p">,</span><span class="mi">719</span><span class="p">,</span><span class="mi">1842</span><span class="p">,</span><span class="mi">4766</span><span class="p">,</span><span class="mi">12486</span><span class="p">,</span>
- <span class="mi">32973</span><span class="p">,</span><span class="mi">87811</span><span class="p">,</span><span class="mi">235381</span><span class="p">,</span><span class="mi">634847</span><span class="p">,</span><span class="mi">1721159</span><span class="p">,</span><span class="mi">4688676</span><span class="p">,</span>
- <span class="mi">12826228</span><span class="p">,</span><span class="mi">35221832</span><span class="p">,</span><span class="mi">97055181</span><span class="p">,</span><span class="mi">268282855</span><span class="p">,</span><span class="mi">743724984</span><span class="p">,</span>
- <span class="mi">2067174645</span><span class="p">,</span><span class="mi">5759636510</span><span class="p">,</span><span class="mi">16083734329</span><span class="p">,</span><span class="mi">45007066269</span><span class="p">,</span>
- <span class="mi">126186554308</span><span class="p">,</span><span class="mi">354426847597</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># How many graphs will we need to get graphs up to 17 nodes?</span>
-<span class="n">number_to_try</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">known_sequence</span><span class="p">[:</span><span class="mi">17</span><span class="p">])</span>
-<span class="n">number_to_try</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[4]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>1011311</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">RootedTreeCodeGenerator</span><span class="o">.</span><span class="n">make_table</span><span class="p">(</span><span class="n">number_to_try</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;len&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">code</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[6]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>len
-1          1
-2          1
-3          2
-4          4
-5          9
-6         20
-7         48
-8        115
-9        286
-10       719
-11      1842
-12      4766
-13     12486
-14     32973
-15     87811
-16    235381
-17    634847
-Name: code, dtype: int64</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Show that the sequences match at least up to the last element of the shorter sequence</span>
-<span class="p">[</span><span class="n">x</span> <span class="o">==</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">48</span><span class="p">,</span><span class="mi">115</span><span class="p">,</span><span class="mi">286</span><span class="p">,</span><span class="mi">719</span><span class="p">,</span><span class="mi">1842</span><span class="p">,</span><span class="mi">4766</span><span class="p">,</span><span class="mi">12486</span><span class="p">,</span>
- <span class="mi">32973</span><span class="p">,</span><span class="mi">87811</span><span class="p">,</span><span class="mi">235381</span><span class="p">,</span><span class="mi">634847</span><span class="p">,</span><span class="mi">1721159</span><span class="p">,</span><span class="mi">4688676</span><span class="p">,</span>
- <span class="mi">12826228</span><span class="p">,</span><span class="mi">35221832</span><span class="p">,</span><span class="mi">97055181</span><span class="p">,</span><span class="mi">268282855</span><span class="p">,</span><span class="mi">743724984</span><span class="p">,</span>
- <span class="mi">2067174645</span><span class="p">,</span><span class="mi">5759636510</span><span class="p">,</span><span class="mi">16083734329</span><span class="p">,</span><span class="mi">45007066269</span><span class="p">,</span>
- <span class="mi">126186554308</span><span class="p">,</span><span class="mi">354426847597</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;len&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">code</span><span class="p">)]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[7]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[True,
- True,
- True,
- True,
- True,
- True,
- True,
- True,
- True,
- True,
- True,
- True,
- True,
- True,
- True,
- True,
- True]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># LGTM!</span>
-</pre></div>
-
-</div>
 </div>
 </div>
 
