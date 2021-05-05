@@ -6,14 +6,13 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="author" content="brian cruz" />
-        <title>DNA Packaging</title>
+        <title>Big Data, Algorithms, and Mathematics</title>
         
 <meta name="description" content="&lt;div class=&#34;cell border-box-sizing text_cell rendered&#34;&gt;&lt;div class=&#34;prompt input_prompt&#34;&gt;
 &lt;/div&gt;&lt;div class=&#34;inner_cell&#34;&gt;
 &lt;div class=&#34;text_cell_render border-box-sizing rendered_html&#34;&gt;
-&lt;p&gt;In graduate school, I investigated DNA packaging in viruses by running massive stochastic simulations on GPUs. I wrote:&lt;/p&gt;
-&lt;blockquote&gt;&lt;p&gt;Despite its small stature, the bacteriophage virus for decades has puzzled those who have sought to understand how they geometrically store their DNA. Since the 1970’s, both direct methods (like electron microscopy) and indirect methods (like numerical simulation) have helped elucidate the structure of DNA within the viral capsid. We use computer simulation to understand how the DNA packaging motor of the virus affects this structure through a mathematical quantifier of chirality called writhe....&lt;/p&gt;" />
-<meta name="keywords" content=" math dna topology dna packaging  "/>
+&lt;p&gt;In the world of data, the connection between computer science and mathematics is undeniable. In fact, when folks try to explain what exactly a data professional is, Venn diagrams run abound. Entertainingly, whatever profession the article is about is usually in the center and everyone else is on the side. Five hundred years have passed, and we are still espousing geocentric views of the universe! But I degress...&lt;/p&gt;" />
+<meta name="keywords" content=" big data algorithms math  "/>
 
         <!--[if !IE 7]>
         <style type="text/css">
@@ -58,18 +57,18 @@
                 <div id="contents">
 <div class="row">
     <div class="small-12 columns article">
-        <h2>DNA Packaging</h2>
+        <h2>Big Data, Algorithms, and Mathematics</h2>
         <div class="row info-bar" style="margin-left:0rem;margin-bottom:6px;">
     <div class="small-12 columns">
         <ul class="inline-list">
-            <li><span><i class="fa fa-calendar"></i>&nbsp; Tue 12 February 2019</span></li>
+            <li><span><i class="fa fa-calendar"></i>&nbsp; Sun 09 December 2018</span></li>
             <li><span><i class="fa fa-folder-open"></i>&nbsp; <a href="https://i.stolethis.website/category/posts.html">posts</a></span></li>
             <li>
                 <span>
                     <i class="fa fa-tags"></i>&nbsp;
+                    <a href="https://i.stolethis.website/tag/big-data.html"><span class="label">big data</span></a>
+                    <a href="https://i.stolethis.website/tag/algorithms.html"><span class="label">algorithms</span></a>
                     <a href="https://i.stolethis.website/tag/math.html"><span class="label">math</span></a>
-                    <a href="https://i.stolethis.website/tag/dna-topology.html"><span class="label">dna topology</span></a>
-                    <a href="https://i.stolethis.website/tag/dna-packaging.html"><span class="label">dna packaging</span></a>
                 </span>
             </li>
         </ul>
@@ -1195,30 +1194,424 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style><body><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In graduate school, I investigated DNA packaging in viruses by running massive stochastic simulations on GPUs. I wrote:</p>
-<blockquote><p>Despite its small stature, the bacteriophage virus for decades has puzzled those who have sought to understand how they geometrically store their DNA. Since the 1970’s, both direct methods (like electron microscopy) and indirect methods (like numerical simulation) have helped elucidate the structure of DNA within the viral capsid. We use computer simulation to understand how the DNA packaging motor of the virus affects this structure through a mathematical quantifier of chirality called writhe....</p>
-</blockquote>
-<p>I wrote the code for the Brownian Dynamics simulation (primer <a href="http://web.mit.edu/doylegroup/pubs/BD-Handbook-v5.pdf">here</a>) using OpenCL, which I still really hope to this day catches on! (*fingers crossed*).</p>
-<p>Anyway, the point here is not to explain what I did but to share a cool video!</p>
+<p>In the world of data, the connection between computer science and mathematics is undeniable. In fact, when folks try to explain what exactly a data professional is, Venn diagrams run abound. Entertainingly, whatever profession the article is about is usually in the center and everyone else is on the side. Five hundred years have passed, and we are still espousing geocentric views of the universe! But I degress...</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">VimeoVideo</span>
-<span class="kn">from</span> <span class="nn">decorator</span> <span class="kn">import</span> <span class="n">decorator</span>
+<div class=" highlight hl-scala"><pre><span></span><span class="k">case</span> <span class="k">class</span> <span class="nc">Node</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">next</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Node</span><span class="o">])</span>
+ 
+<span class="c1">// def reverse(node: Node, prev: Option[Node] = None): Node = {</span>
+<span class="c1">//   val reversed = node.copy(next = prev)</span>
+<span class="c1">//   node.next map {reverse(_, Some(reversed))} getOrElse reversed</span>
+<span class="c1">// } </span>
 
-<span class="k">class</span> <span class="nc">CenteredVimeoVideo</span><span class="p">(</span><span class="n">VimeoVideo</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">html</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">CenteredVimeoVideo</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_repr_html_</span><span class="p">()</span>
-        <span class="k">return</span> <span class="s2">&quot;&lt;center&gt;</span><span class="si">{}</span><span class="s2">&lt;/center&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+<span class="k">def</span> <span class="n">reverse</span><span class="o">(</span><span class="n">node</span><span class="k">:</span> <span class="kt">Node</span><span class="o">,</span> <span class="n">prev</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Node</span><span class="o">]</span> <span class="o">=</span> <span class="nc">None</span><span class="o">)</span><span class="k">:</span> <span class="kt">Node</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">var</span> <span class="n">p</span> <span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Node</span><span class="o">]</span> <span class="o">=</span> <span class="nc">None</span>
+    <span class="k">var</span> <span class="n">c</span> <span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Node</span><span class="o">]</span> <span class="o">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">node</span><span class="o">)</span>
+    <span class="k">var</span> <span class="n">c2</span> <span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Node</span><span class="o">]</span> <span class="o">=</span> <span class="nc">None</span>
+    <span class="k">var</span> <span class="n">n</span> <span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Node</span><span class="o">]</span> <span class="o">=</span> <span class="nc">None</span>
+    
+    <span class="k">while</span> <span class="o">(</span><span class="n">c</span> <span class="o">!=</span> <span class="nc">None</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">c</span> <span class="n">map</span> <span class="o">{</span><span class="k">_</span><span class="o">.</span><span class="n">next</span><span class="o">}</span> <span class="n">getOrElse</span> <span class="nc">None</span>
+        
+        <span class="n">c2</span> <span class="o">=</span> <span class="n">c</span> <span class="n">map</span> <span class="o">{</span><span class="k">_</span><span class="o">.</span><span class="n">copy</span><span class="o">(</span><span class="n">next</span><span class="k">=</span><span class="n">p</span><span class="o">)}</span> <span class="n">getOrElse</span> <span class="n">c</span>
+        
+        <span class="n">p</span> <span class="o">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">c</span><span class="o">)</span>
+        
+        <span class="n">c</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="o">}</span>
+    <span class="n">c</span>
+<span class="c1">//   val reversed = node.copy(next = prev)</span>
+<span class="c1">//   node.next map {reverse(_, Some(reversed))} getOrElse reversed</span>
+<span class="o">}</span> 
+
+<span class="c1">// @scala.annotation.tailrec</span>
+<span class="c1">// def reverse(node: Node, prev: Option[Node] = None): Node = {</span>
+<span class="c1">//   val reversed = node.copy(next = prev)</span>
+<span class="c1">//   node.next match {</span>
+<span class="c1">//     case None =&gt; reversed </span>
+<span class="c1">//     case Some(next) =&gt; reverse(next, Some(reversed))  </span>
+<span class="c1">//   }  </span>
+<span class="c1">// } </span>
+<span class="cm">/****************************************************************/</span>
+<span class="k">val</span> <span class="n">one</span> <span class="o">=</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="nc">Some</span><span class="o">(</span><span class="nc">Node</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="nc">Some</span><span class="o">(</span><span class="nc">Node</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span><span class="nc">None</span><span class="o">)))))</span>
+<span class="c1">// println(s&quot;$one\n${reverse(one)}&quot;)</span>
+<span class="n">reverse</span><span class="o">(</span><span class="n">one</span><span class="o">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+&lt;console&gt;:33: error: type mismatch;
+ found   : Product with Serializable
+ required: Option[Node]
+               c2 = c map {_.copy(next=p)} getOrElse c
+                                           ^
+&lt;console&gt;:35: error: type mismatch;
+ found   : Option[Node]
+ required: Node
+               p = Some(c)
+                        ^
+&lt;console&gt;:39: error: type mismatch;
+ found   : Option[Node]
+ required: Node
+           c
+           ^
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2018-12-09 22:37:50 WARN  HeartbeatReceiver:66 - Removing executor driver with no recent heartbeats: 10636621 ms exceeds timeout 120000 ms
+2018-12-09 22:37:50 ERROR TaskSchedulerImpl:70 - Lost an executor driver (already removed): Executor heartbeat timed out after 10636621 ms
+2018-12-09 22:37:50 WARN  SparkContext:66 - Killing executors is not supported by current scheduler.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-scala"><pre><span></span><span class="k">val</span> <span class="n">x</span> <span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Node</span><span class="o">]</span> <span class="o">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">one</span><span class="o">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+&lt;console&gt;:28: error: type mismatch;
+ found   : Node
+ required: Node
+       val x : Option[Node] = Some(one)
+                                   ^
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-scala"><pre><span></span><span class="n">one</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[13]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>res3: Node = Node(1,Some(Node(2,Some(Node(3,None)))))
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-scala"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">one</span><span class="o">)</span> <span class="n">map</span> <span class="o">{</span><span class="k">_</span><span class="o">.</span><span class="n">next</span><span class="o">}</span> <span class="n">getOrElse</span> <span class="nc">None</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+&lt;console&gt;:30: error: type mismatch;
+ found   : Option[Node]
+ required: Option[Node]
+       x = Some(one) map {_.next} getOrElse None
+                                  ^
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-scala"><pre><span></span><span class="n">one</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[52]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>res45: Node = Node(1,Some(Node(2,Some(Node(3,None)))))
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-scala"><pre><span></span><span class="n">next</span><span class="k">=</span><span class="nc">None</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+&lt;console&gt;:27: error: not found: value next
+val $ires5 = next
+             ^
+&lt;console&gt;:24: error: not found: value next
+       next=None
+       ^
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-scala"><pre><span></span><span class="n">one</span><span class="o">.</span><span class="n">copy</span><span class="o">(</span><span class="n">next</span><span class="k">=</span><span class="nc">None</span><span class="o">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[38]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>res33: Node = Node(1,None)
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-scala"><pre><span></span><span class="n">one</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="nc">None</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[11]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>one.next: Option[Node] = None
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-scala"><pre><span></span><span class="n">one</span><span class="o">.</span><span class="n">copy</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span><span class="nc">Some</span><span class="o">(</span><span class="n">one</span><span class="o">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[28]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>res24: Node = Node(10,Some(Node(1,None)))
+</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-scala"><pre><span></span><span class="nc">None</span> <span class="o">==</span> <span class="nc">None</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[21]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>res17: Boolean = true
+</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -1228,7 +1621,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">CenteredVimeoVideo</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;313747384&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">611</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-scala"><pre><span></span><span class="nc">Node</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="nc">None</span><span class="o">)</span>
 </pre></div>
 
     </div>
@@ -1245,18 +1638,53 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<center>
-        <iframe
-            width="640"
-            height="611"
-            src="https://player.vimeo.com/video/313747384?center=True"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        </center>
+
+<div class="output_text output_subarea output_execute_result">
+<pre>res1: Node = Node(1,None)
+</pre>
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-scala"><pre><span></span><span class="nd">@scala</span><span class="o">.</span><span class="n">annotation</span><span class="o">.</span><span class="n">tailrec</span>
+<span class="k">def</span> <span class="n">reverse</span><span class="o">(</span><span class="n">node</span><span class="k">:</span> <span class="kt">Node</span><span class="o">,</span> <span class="n">prev</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Node</span><span class="o">]</span> <span class="o">=</span> <span class="nc">None</span><span class="o">)</span><span class="k">:</span> <span class="kt">Node</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">reversed</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">copy</span><span class="o">(</span><span class="n">next</span> <span class="o">=</span> <span class="n">prev</span><span class="o">)</span>
+  <span class="n">node</span><span class="o">.</span><span class="n">next</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">None</span> <span class="o">=&gt;</span> <span class="n">reversed</span> 
+    <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">next</span><span class="o">)</span> <span class="o">=&gt;</span> <span class="n">reverse</span><span class="o">(</span><span class="n">next</span><span class="o">,</span> <span class="nc">Some</span><span class="o">(</span><span class="n">reversed</span><span class="o">))</span>  
+  <span class="o">}</span>  
+<span class="o">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+&lt;console&gt;:29: error: could not optimize @tailrec annotated method reverse: it is neither private nor final so can be overridden
+       def reverse(node: Node, prev: Option[Node] = None): Node = {
+           ^
+</pre>
+</div>
 </div>
 
 </div>
@@ -1268,7 +1696,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-scala"><pre><span></span>
 </pre></div>
 
     </div>

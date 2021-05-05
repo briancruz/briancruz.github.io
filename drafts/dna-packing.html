@@ -6,14 +6,11 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="author" content="brian cruz" />
-        <title>DNA Packaging</title>
+        <title>DNA Packing</title>
         
-<meta name="description" content="&lt;div class=&#34;cell border-box-sizing text_cell rendered&#34;&gt;&lt;div class=&#34;prompt input_prompt&#34;&gt;
-&lt;/div&gt;&lt;div class=&#34;inner_cell&#34;&gt;
-&lt;div class=&#34;text_cell_render border-box-sizing rendered_html&#34;&gt;
-&lt;p&gt;In graduate school, I investigated DNA packaging in viruses by running massive stochastic simulations on GPUs. I wrote:&lt;/p&gt;
-&lt;blockquote&gt;&lt;p&gt;Despite its small stature, the bacteriophage virus for decades has puzzled those who have sought to understand how they geometrically store their DNA. Since the 1970’s, both direct methods (like electron microscopy) and indirect methods (like numerical simulation) have helped elucidate the structure of DNA within the viral capsid. We use computer simulation to understand how the DNA packaging motor of the virus affects this structure through a mathematical quantifier of chirality called writhe....&lt;/p&gt;" />
-<meta name="keywords" content=" math dna topology dna packaging  "/>
+<meta name="description" content="&lt;div class=&#34;cell border-box-sizing code_cell rendered&#34;&gt;
+&lt;div class=&#34;input&#34;&gt;" />
+<meta name="keywords" content=" dna physics brownian dynamics  "/>
 
         <!--[if !IE 7]>
         <style type="text/css">
@@ -58,18 +55,18 @@
                 <div id="contents">
 <div class="row">
     <div class="small-12 columns article">
-        <h2>DNA Packaging</h2>
+        <h2>DNA Packing</h2>
         <div class="row info-bar" style="margin-left:0rem;margin-bottom:6px;">
     <div class="small-12 columns">
         <ul class="inline-list">
-            <li><span><i class="fa fa-calendar"></i>&nbsp; Tue 12 February 2019</span></li>
+            <li><span><i class="fa fa-calendar"></i>&nbsp; Thu 29 November 2018</span></li>
             <li><span><i class="fa fa-folder-open"></i>&nbsp; <a href="https://i.stolethis.website/category/posts.html">posts</a></span></li>
             <li>
                 <span>
                     <i class="fa fa-tags"></i>&nbsp;
-                    <a href="https://i.stolethis.website/tag/math.html"><span class="label">math</span></a>
-                    <a href="https://i.stolethis.website/tag/dna-topology.html"><span class="label">dna topology</span></a>
-                    <a href="https://i.stolethis.website/tag/dna-packaging.html"><span class="label">dna packaging</span></a>
+                    <a href="https://i.stolethis.website/tag/dna.html"><span class="label">dna</span></a>
+                    <a href="https://i.stolethis.website/tag/physics.html"><span class="label">physics</span></a>
+                    <a href="https://i.stolethis.website/tag/brownian-dynamics.html"><span class="label">brownian dynamics</span></a>
                 </span>
             </li>
         </ul>
@@ -1192,43 +1189,18 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
 .highlight .vm { color: #19177C } /* Name.Variable.Magic */
-.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style><body><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In graduate school, I investigated DNA packaging in viruses by running massive stochastic simulations on GPUs. I wrote:</p>
-<blockquote><p>Despite its small stature, the bacteriophage virus for decades has puzzled those who have sought to understand how they geometrically store their DNA. Since the 1970’s, both direct methods (like electron microscopy) and indirect methods (like numerical simulation) have helped elucidate the structure of DNA within the viral capsid. We use computer simulation to understand how the DNA packaging motor of the virus affects this structure through a mathematical quantifier of chirality called writhe....</p>
-</blockquote>
-<p>I wrote the code for the Brownian Dynamics simulation (primer <a href="http://web.mit.edu/doylegroup/pubs/BD-Handbook-v5.pdf">here</a>) using OpenCL, which I still really hope to this day catches on! (*fingers crossed*).</p>
-<p>Anyway, the point here is not to explain what I did but to share a cool video!</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style><body><div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">VimeoVideo</span>
-<span class="kn">from</span> <span class="nn">decorator</span> <span class="kn">import</span> <span class="n">decorator</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
 
-<span class="k">class</span> <span class="nc">CenteredVimeoVideo</span><span class="p">(</span><span class="n">VimeoVideo</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">html</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">CenteredVimeoVideo</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_repr_html_</span><span class="p">()</span>
-        <span class="k">return</span> <span class="s2">&quot;&lt;center&gt;</span><span class="si">{}</span><span class="s2">&lt;/center&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">CenteredVimeoVideo</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;313747384&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">611</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">&lt;div style=&quot;text-align: center&quot;&gt;</span>
+<span class="s2">    &lt;iframe width=&quot;600&quot; height=&quot;600&quot; src=&quot;https://www.youtube-nocookie.com/embed/5ZRZ3kBzAJk&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen&gt;&lt;/iframe&gt;</span>
+<span class="s2">&lt;/div&gt;&quot;&quot;&quot;</span>
+<span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1241,20 +1213,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[2]:</div>
+    <div class="prompt output_prompt">Out[12]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-<center>
-        <iframe
-            width="640"
-            height="611"
-            src="https://player.vimeo.com/video/313747384?center=True"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        </center>
+
+<div style="text-align: center">
+    <iframe width="600" height="600" src="https://www.youtube-nocookie.com/embed/5ZRZ3kBzAJk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 </div>
 
 </div>

@@ -6,14 +6,14 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="author" content="brian cruz" />
-        <title>DNA Packaging</title>
+        <title>The Worm-Like Chain</title>
         
 <meta name="description" content="&lt;div class=&#34;cell border-box-sizing text_cell rendered&#34;&gt;&lt;div class=&#34;prompt input_prompt&#34;&gt;
 &lt;/div&gt;&lt;div class=&#34;inner_cell&#34;&gt;
 &lt;div class=&#34;text_cell_render border-box-sizing rendered_html&#34;&gt;
-&lt;p&gt;In graduate school, I investigated DNA packaging in viruses by running massive stochastic simulations on GPUs. I wrote:&lt;/p&gt;
-&lt;blockquote&gt;&lt;p&gt;Despite its small stature, the bacteriophage virus for decades has puzzled those who have sought to understand how they geometrically store their DNA. Since the 1970’s, both direct methods (like electron microscopy) and indirect methods (like numerical simulation) have helped elucidate the structure of DNA within the viral capsid. We use computer simulation to understand how the DNA packaging motor of the virus affects this structure through a mathematical quantifier of chirality called writhe....&lt;/p&gt;" />
-<meta name="keywords" content=" math dna topology dna packaging  "/>
+&lt;p&gt;The Worm-Like Chain (WLC) is a mathematical model for polymers. Intuitively, it favors smooth curves at a smaller scale and a more random-walk-like appearance at larger ones.&lt;/p&gt;
+&lt;p&gt;Also referred to as the Kratky-Porod model, the Worm-Like Chain treats the polymer as a continuously flexible, isotropic rod (does not stretch or compress) that has no thickness.&lt;/p&gt;" />
+<meta name="keywords" content=" polymers dna math topology  "/>
 
         <!--[if !IE 7]>
         <style type="text/css">
@@ -58,18 +58,19 @@
                 <div id="contents">
 <div class="row">
     <div class="small-12 columns article">
-        <h2>DNA Packaging</h2>
+        <h2>The Worm-Like Chain</h2>
         <div class="row info-bar" style="margin-left:0rem;margin-bottom:6px;">
     <div class="small-12 columns">
         <ul class="inline-list">
-            <li><span><i class="fa fa-calendar"></i>&nbsp; Tue 12 February 2019</span></li>
+            <li><span><i class="fa fa-calendar"></i>&nbsp; Wed 02 January 2019</span></li>
             <li><span><i class="fa fa-folder-open"></i>&nbsp; <a href="https://i.stolethis.website/category/posts.html">posts</a></span></li>
             <li>
                 <span>
                     <i class="fa fa-tags"></i>&nbsp;
+                    <a href="https://i.stolethis.website/tag/polymers.html"><span class="label">polymers</span></a>
+                    <a href="https://i.stolethis.website/tag/dna.html"><span class="label">dna</span></a>
                     <a href="https://i.stolethis.website/tag/math.html"><span class="label">math</span></a>
-                    <a href="https://i.stolethis.website/tag/dna-topology.html"><span class="label">dna topology</span></a>
-                    <a href="https://i.stolethis.website/tag/dna-packaging.html"><span class="label">dna packaging</span></a>
+                    <a href="https://i.stolethis.website/tag/topology.html"><span class="label">topology</span></a>
                 </span>
             </li>
         </ul>
@@ -1195,27 +1196,174 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style><body><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In graduate school, I investigated DNA packaging in viruses by running massive stochastic simulations on GPUs. I wrote:</p>
-<blockquote><p>Despite its small stature, the bacteriophage virus for decades has puzzled those who have sought to understand how they geometrically store their DNA. Since the 1970’s, both direct methods (like electron microscopy) and indirect methods (like numerical simulation) have helped elucidate the structure of DNA within the viral capsid. We use computer simulation to understand how the DNA packaging motor of the virus affects this structure through a mathematical quantifier of chirality called writhe....</p>
-</blockquote>
-<p>I wrote the code for the Brownian Dynamics simulation (primer <a href="http://web.mit.edu/doylegroup/pubs/BD-Handbook-v5.pdf">here</a>) using OpenCL, which I still really hope to this day catches on! (*fingers crossed*).</p>
-<p>Anyway, the point here is not to explain what I did but to share a cool video!</p>
+<p>The Worm-Like Chain (WLC) is a mathematical model for polymers. Intuitively, it favors smooth curves at a smaller scale and a more random-walk-like appearance at larger ones.</p>
+<p>Also referred to as the Kratky-Porod model, the Worm-Like Chain treats the polymer as a continuously flexible, isotropic rod (does not stretch or compress) that has no thickness.</p>
+<p>In this post we will discuss:</p>
+<ul>
+<li>a discrete approximation of the WLC,</li>
+<li>the continuous Krakty-Porod model, and</li>
+<li>methods for sampling these conformations.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="a-discrete-approximation">a discrete approximation<a class="anchor-link" href="#a-discrete-approximation">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="the-continuous-wlc">the continuous wlc<a class="anchor-link" href="#the-continuous-wlc">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We define a WLC by beginning with a length $l$ and a twice-differentiable function $w:\left[0,l\right]\to\mathbb{R}^{3}$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The points $w\left(0\right)$ and $w\left(t\right)$ are separated by a contour length of $t$ for $t\in\left[0,l\right]$. In other words, 
+$$
+\int_{0}^{t}w'\left(s\right)ds=t.
+$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note that this implies that the parametrization is constant-speed, and so
+$$
+\left|w'\left(s\right)\right|=1.
+$$
+for all $s\in\left[0,l\right]$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To write down the energy term associated with this specific conformation
+of a WLC of length $l$, we note that it reaches a global energy minimum
+when the chain is straight, or when $w'\left(s\right)$ is constant
+and zero:
+$$
+w''\left(s\right)\equiv0.
+$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The energy term for the continuous WLC is
+$$
+E_{\text{WLC}}=\frac{1}{2}c_{\text{WLC}}\int_{0}^{l}\left[w''\left(s\right)\right]^{2}ds
+$$
+where $c_{\text{WLC}}$ is some constant. This is actually the only
+possible energy term for this continuous chain \cite{doi_theory_1988}.
+What the integral does in this expression is add up the square of
+the infinitesimal changes in angle $d\theta$ of the tangent vector
+$w'\left(s\right)$, which we will see is equivalent to the approach
+for the discrete worm-like chain.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From this energy function, we can calculate the conformational distribution
+according to the Boltzmann distribution. That is if $\mathcal{F}$
+is the space of WLC's of length $l$ and $f:\mathcal{F}\to\mathbb{R}$
+is a probability density function for these WLC's, then
+[
+f\left(w\right)\varpropto e^{-\frac{E<em>{\text{WLC}}}{k</em>{B}\mathcal{T}}}=\exp\left[-\frac{1}{2}\frac{c<em>{\text{WLC}}}{k</em>{B}\mathcal{T}}\int<em>{0}^{l}\left[w''\left(s\right)\right]^{2}ds\right]
+]
+where $k</em>{B}$ is Boltzmann's constant and $\mathcal{T}$ is the temperature.
+The value
+[
+P=\frac{c<em>{\text{WLC}}}{k</em>{B}\mathcal{T}}
+]
+is the \emph{persistence length} of the WLC and 
+[
+\kappa=2P=\frac{2c<em>{\text{WLC}}}{k</em>{B}\mathcal{T}}
+]
+the \emph{Kuhn length}.</p>
+<p>As these quantities for a given worm-like chain can vary with the
+temperature (recall that a worm-like chain as temperature $\mathcal{T}\to0$
+assumes a straight, rigid rod conformation, for which $P\to\infty$),
+it is important to bear in mind that a given persistence length (or
+Kuhn length) is given at some reference level for $k_{B}\mathcal{T}$.
+For instance, DNA has a persistence length of $50\,\text{nm}$ in
+physiological conditions \cite{bates_dna<em>2005}, for which $k</em>{B}\mathcal{T}\approx4.1\,\text{pN\ensuremath{\cdot}nm}$
+(units often used in biomolecular studies). Assuming a worm-like chain
+properly models a molecule of DNA, then this persistence length would
+change as the temperature changes. Let $k<em>{B}\mathcal{T}\approx4.1\,\text{pN\ensuremath{\cdot}nm}$
+be the referential value and so 
+[
+c</em>{\text{WLC}}=P\cdot k<em>{B}\mathcal{T}=50\,\text{nm}\cdot k</em>{B}\mathcal{T}
+]
+and thus for values of $T$ not necessarily equal to $T_{0}$ the
+persistence length of the WLC will be
+[
+P=\frac{c<em>{\text{WLC}}}{k</em>{B}\mathcal{T}}=\frac{50k<em>{B}\mathcal{T}}{k</em>{B}\mathcal{T}}
+]
+where $k_{B}\mathcal{T}\approx4.1\,\text{pN\ensuremath{\cdot}nM}$
+is the referential value since $c_{\text{WLC}}$. Nevertheless, often
+it is assumed that the value for $k_{B}\mathcal{T}$ is fixed, and
+so we simply say that $c_{WLC}$ in the case of DNA is about $50k_{B}\mathcal{T}$.</p>
+<p>Another property of WLC's involves the orientation correlation function
+$w'\left(s\right)\cdot w'\left(0\right)$, defined for values of $s\in\left[0,l\right]$.
+The ensemble average $\left\langle w'\left(s\right)\cdot w'\left(0\right)\right\rangle $
+(expected value over all conformations) of this function decays exponentially
+with respect to $s$ and adheres to
+[
+\left\langle w'\left(s\right)\cdot w'\left(0\right)\right\rangle =\left\langle \cos\theta\left(s\right)\right\rangle =e^{-\frac{s}{P}}
+]
+where $\theta\left(s\right)$ is the angle between the vectors $w'\left(0\right)$
+and $w'\left(s\right)$.</p>
+<p>To understand the ensemble average mathematically, let $\mathcal{C}$
+be the set of smooth functions from $\left[0,l\right]$ to $\mathbb{R}^{3}$
+and consider the function $g:\mathcal{C}\to\mathbb{R}$. Then since
+the Boltzmann distribution gives us
+[
+P\left(c\right)\propto e^{-E<em>{\text{WLC}}\left(c\right)/k</em>{B}\mathcal{T}}
+]
+we normalize by the integral of $e^{-E_{\text{WLC}}\left(c\right)/k_{B}\mathcal{T}}$
+over all $\mathcal{C}$ obtaining
+[
+P\left(c\right)=\frac{e^{-E<em>{\text{WLC}}\left(c\right)/k</em>{B}\mathcal{T}}}{\int<em>{c\in\mathcal{C}}e^{-E</em>{\text{WLC}}\left(c'\right)/k<em>{B}\mathcal{T}}dc'}.
+]
+Then the expected value $\mathbb{E}\left[g\left(c\right)\right]=\left\langle g\left(c\right)\right\rangle $
+is given by 
+[
+\left\langle g\left(c\right)\right\rangle =\frac{\int</em>{c\in\mathcal{C}}g\left(c\right)e^{-E<em>{\text{WLC}}\left(c'\right)/k</em>{B}\mathcal{T}}dc'}{\int<em>{c\in\mathcal{C}}e^{-E</em>{\text{WLC}}\left(c'\right)/k_{B}\mathcal{T}}dc'}.
+]</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">VimeoVideo</span>
-<span class="kn">from</span> <span class="nn">decorator</span> <span class="kn">import</span> <span class="n">decorator</span>
-
-<span class="k">class</span> <span class="nc">CenteredVimeoVideo</span><span class="p">(</span><span class="n">VimeoVideo</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">html</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">CenteredVimeoVideo</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_repr_html_</span><span class="p">()</span>
-        <span class="k">return</span> <span class="s2">&quot;&lt;center&gt;</span><span class="si">{}</span><span class="s2">&lt;/center&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -1225,43 +1373,54 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">CenteredVimeoVideo</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;313747384&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">611</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[2]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<center>
-        <iframe
-            width="640"
-            height="611"
-            src="https://player.vimeo.com/video/313747384?center=True"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        </center>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We define a WLC by beginning with a length $l$ and a smooth function
+$w:\left[0,l\right]\to\mathbb{R}^{3}$ for which $w\left(s\right)$
+is a point on the chain for $s\in\left[0,l\right]$ (as a reminder,
+that fact that $w$ is smooth means $w\in C^{\infty}\left[0,l\right]$).
+As the WLC has constant contour length $l$ we have
+[
+\int_{0}^{l}w'\left(s\right)ds=l;
+]
+additionally, for simplicity in the representation, our parametrization
+is constant-speed, and so
+[
+\left|w'\left(s\right)\right|=1
+]
+for all $s\in\left[0,l\right]$.</p>
+<p>To write down the energy term associated with this specific conformation
+of a WLC of length $l$, we note that it reaches a global energy minimum
+when the chain is straight, or when $w'\left(s\right)$ is constant
+and
+[
+w''\left(s\right)\equiv0.
+]
+A possible energy term must then be
+[
+E<em>{\text{WLC}}=\frac{1}{2}c</em>{\text{WLC}}\int<em>{0}^{l}\left[w''\left(s\right)\right]^{2}ds
+]
+where $c</em>{\text{WLC}}$ is some constant. This is actually the only
+possible energy term for this continuous chain \cite{doi_theory_1988}.
+What the integral does in this expression is add up the square of
+the infinitesimal changes in angle $d\theta$ of the tangent vector
+$w'\left(s\right)$, which we will see is equivalent to the approach
+for the discrete worm-like chain.</p>
 
 </div>
-
 </div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
